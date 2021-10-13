@@ -18,9 +18,24 @@ MO_CITIES = ["ames","cedar rapids","columbia","des moines","fayetteville","fort 
              "topeka","tulsa","waterloo","western il","wichita","kansascity",]
 
 
-def get_porsche(city:str="kansascity") -> Response:
+def get_porsche(city:str="kansascity", model: str="porsche 944") -> Response:
     """GET current Craigslist porsche 944 postings"""
-    return get(f"https://{city}.craigslist.org/search/sss?query=porsche%20944&sort=rel")
+    search = build_search(model)
+    url = f"https://{city}.craigslist.org/search/sss?query={search}&sort=rel"
+    print(url)
+    return get(url)
+
+def build_search(model: str) -> str:
+    """Build search for craigslist"""
+    car = ""
+    search = model.split()
+    if len(search) <= 1:
+        pass
+    else:
+        for item in range(len(search) - 1):
+            car = car + search[item] + "%20"
+    return car + search[-1]
+
 
 def get_soup(response: Response) -> list:
     """Parse the reponse into a nested list"""
