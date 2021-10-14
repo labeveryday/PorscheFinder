@@ -5,13 +5,6 @@ from pprint import pprint
 from requests.models import Response
 
 
-MO_CITIES = ["ames","cedar rapids","columbia","des moines","fayetteville","fort dodge",
-             "fort smith","grand island","iowa city","joplin","kirksville","lake of ozarks",
-             "lawrence","lincoln","manhattan","northwest ok","omaha","salina","sioux city",
-             "southeast ia","southeast ks","springfield","stillwater","st joseph","st louis",
-             "topeka","tulsa","waterloo","western il","wichita","kansascity",]
-
-
 def get_porsche(city:str="kansascity", model: str="porsche%20944") -> Response:
     """GET current Craigslist porsche 944 postings"""
     if model:

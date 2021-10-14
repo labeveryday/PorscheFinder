@@ -1,12 +1,14 @@
 import unittest
-from cars import get_porsche, get_soup
+import sys
+sys.path.append('./')
+import cars
 
 class TestMain(unittest.TestCase):
     """This is to test the Porsche Finder"""
     
     def test_get_porsche_response(self):
         """Send an API request to test connectivity."""
-        response = get_porsche()
+        response = cars.get_porsche()
         self.assertTrue(response)
 
 
