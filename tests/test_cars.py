@@ -1,5 +1,5 @@
 import unittest
-from main import get_porsche, get_soup
+from cars import get_porsche, get_soup
 
 class TestMain(unittest.TestCase):
     """This is to test the Porsche Finder"""
