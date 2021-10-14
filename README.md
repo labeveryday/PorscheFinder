@@ -2,6 +2,8 @@
 
 ![Porsche](./img/porsche.jpg)
 
+This repo was created to find a Porsche 944 (Praying for a Turbo)! This car means a lot to me. My goal is to use python to find one that is in great shape and also has a good price!
+
 Currently working on documentation.
 
 ### About me
