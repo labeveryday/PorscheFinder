@@ -3,7 +3,7 @@ import sys
 sys.path.append('./')
 import cars
 
-class TestMain(unittest.TestCase):
+class TestCars(unittest.TestCase):
     """This is to test the Porsche Finder"""
     
     def test_get_porsche_response(self):
