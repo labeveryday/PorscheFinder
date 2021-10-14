@@ -25,12 +25,12 @@ def build_search(model: str) -> str:
 
 def get_soup(response: Response) -> list:
     """Parse the reponse into a nested list"""
-    cars = []
+    _cars = []
     html_soup = BeautifulSoup(response.text, "html.parser")
     posts = html_soup.find_all("li", class_= "result-row")  # Find all porsche postings
     for post in posts:
         url = post.find("a", class_="result-title hdrlnk")['href']
-        cars.append(
+        _cars.append(
             {
                 "datelisted": post.find("time", class_= "result-date")['datetime'],
                 "price": post.a.text.strip(),
@@ -39,9 +39,22 @@ def get_soup(response: Response) -> list:
                 "location": url.split("https://")[1].split(".")[0],  # Splits url at 'https://' and the 1st . after city
             }
         )
+    cars = remove_dupes(_cars)
+    return cars
+
+def remove_dupes(car_list):
+    """Remove duplicate dicts from list"""
+    x = set()
+    cars = []
+    for i in car_list:
+        if i['title'] not in x:
+            x.add(i['title'])
+            cars.append(i)
+        else:
+            continue
     return cars
 
 
 if __name__ == "__main__":
     response = get_porsche()
-    pprint(get_soup(response), indent=2)
+    x = get_soup(response)
