@@ -1,5 +1,7 @@
 # PorscheFinder
 
+![Porsche](./img/porsche.jpg)
+
 Currently working on documentation.
 
 ### About me
