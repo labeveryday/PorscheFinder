@@ -2,7 +2,7 @@ import sqlite3 as sql
 # from contextlib import closing
 import os.path
 from sqlite3.dbapi2 import Connection, Cursor, connect
-from typing import List
+import pandas as pd
 
 
 class CarsDb:
@@ -54,6 +54,17 @@ class CarsDb:
         """Close db Connection"""
         self.cursor.close()
         self.conn.close()
+
+    def get_pandas(self, location: str='') -> 'pandas.core.frame.DataFrame':
+        if location:
+            query = ("SELECT * FROM CAR WHERE location='{}' "\
+                     "ORDER BY cast(ltrim(price, '$') as numeric) "\
+                     "DESC".format(location))
+        else:
+            query = ("SELECT * FROM CAR ORDER BY cast(ltrim(price, '$') "
+                    "as numeric) DESC;")
+        df = pd.read_sql_query(query, self.conn)
+        return df.set_index('id')
 
 
 if __name__ == "__main__":

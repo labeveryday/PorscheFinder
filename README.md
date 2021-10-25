@@ -42,10 +42,22 @@ python main.py
 
 Sample output.
 
+`...` Some output has been omitted.
+
 ![Sample](./img/sample.png)
 
->NOTE: Some output has been omitted.
+>Note: This script has the ability to list search all cities or select from option of cities.
 
+## Example 2
+
+Here's an example of searching from a list of cities.
+
+```bash
+python main.py --city
+```
+
+![list1](./img/list1.png)
+![list2](./img/list2.png)
 
 
 ### About me
