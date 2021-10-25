@@ -3,8 +3,13 @@
 Craigslist APP that searches for cars and adds them to a database
 """
 # from pprint import pprint
+from time import sleep
+import logging
+import random
 from  src import cars
 from src.cardb import CarsDb
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def main(location: str='kansascity', cities: bool=False) -> None:
@@ -31,6 +36,7 @@ def main(location: str='kansascity', cities: bool=False) -> None:
         car_list.append(car)
     add_to_db(car_list)
     results = get_pandas(location)
+    print(response.headers.get('retry-after'))
     return results
 
 def get_cities() -> list:
@@ -46,6 +52,30 @@ def get_cities() -> list:
         for line in file:
             results.append(line.strip())
     return results
+
+def get_cars():
+    """
+    How to handle a 429 Too Many Requests response in python"""
+    max_attempts = 5
+    attempts = 0
+    while True:
+        response = cars.get_porsche(city=city)
+        # Checks if the response is rate limited
+        if(response.status_code == 429):
+            retry_duration = int(response.headers.get('retry-after'))
+            logging.error(response.text + "\n" + str(response.headers))
+            sleep(retry_duration + random.random()) # random.random returns a random float number between 0.0 to 1.0
+        # Checks for 400 errors
+        elif(response.status_code>=400):
+            logging.error(response.text + "\n" + str(response.headers))
+        # Break ou tof loop if successful
+        elif response.status_code == 200:
+            logging.info(str(response.status_code))
+            break
+        attempts = attempts + 1
+        if(attempts >= max_attempts):
+            logging.error('Failed: Maxed out attempts')
+    return response
 
 def add_to_db(car_list: list) -> dict:
     """
