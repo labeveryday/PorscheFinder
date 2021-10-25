@@ -1,6 +1,6 @@
+# from pprint import pprint
 from requests import get
 from bs4 import BeautifulSoup
-from pprint import pprint
 
 from requests.models import Response
 
@@ -10,7 +10,9 @@ def get_porsche(city:str="kansascity", model: str="porsche%20944") -> Response:
     if model:
         model = build_search(model)
     url = f"https://{city}.craigslist.org/d/cars-trucks/search/cta?query={model}&sort=rel"
-    return get(url)
+    response = get(url)
+    response.raise_for_status()
+    return response
 
 def build_search(model: str) -> str:
     """Build search for craigslist"""

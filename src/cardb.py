@@ -5,9 +5,8 @@ from sqlite3.dbapi2 import Connection, Cursor, connect
 from typing import List
 
 
-
 class CarsDb:
-    def __init__(self, db_name: str='car-db') -> None:
+    def __init__(self, db_name: str='car-db.db') -> None:
         self.db_name = db_name
         self.conn = None
         self._connect()
@@ -15,7 +14,7 @@ class CarsDb:
     def _connect(self) -> Connection:
         """Connection to database"""
         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-        db_path = os.path.join(BASE_DIR, self.db_name)
+        db_path = os.path.join(BASE_DIR + '/db', self.db_name)
         self.conn =  sql.connect(db_path)
         self.cursor = self.conn.cursor()
     
@@ -35,13 +34,21 @@ class CarsDb:
                                             car_dict['price'], car_dict['url'],
                                             car_dict['location'], car_dict['datelisted']))
         except sql.IntegrityError:
-            print(f"Duplicate: {car_dict['title']}, {car_dict['url']}")
+            # print(f"Duplicate: {car_dict['title']}, {car_dict['url']}")
+            pass
     
-    def get_cars(self) -> list:
+    def get_cars(self, location='') -> list:
         """GET list of 10 cars from db"""
-        self.cursor.execute("SELECT * FROM (SELECT * FROM CAR ORDER BY id DESC LIMIT 10)Var1 ORDER BY id ASC;")
+        if location:
+            self.cursor.execute("SELECT * FROM CAR WHERE location=?", (location,))
+        else:
+            self.cursor.execute("SELECT * FROM (SELECT * FROM CAR ORDER BY id DESC)Var1 ORDER BY cast(ltrim(price, '$') as numeric) DESC;")
         results = self.cursor.fetchall()
         return results
+    
+    def commit(self):
+        """Commit db changes"""
+        self.conn.commit()
         
     def close(self) -> None:
         """Close db Connection"""
