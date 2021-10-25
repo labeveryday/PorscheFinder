@@ -4,13 +4,21 @@ from bs4 import BeautifulSoup
 
 from requests.models import Response
 
+# In Google: what is my user agent
+HEADERS = {
+        "user-agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                       "AppleWebKit/537.36 (KHTML, like Gecko) "
+                       "Chrome/95.0.4638.54 Safari/537.36")
+    }
+
 
 def get_porsche(city:str="kansascity", model: str="porsche%20944") -> Response:
     """GET current Craigslist porsche 944 postings"""
+
     if model:
         model = build_search(model)
     url = f"https://{city}.craigslist.org/d/cars-trucks/search/cta?query={model}&sort=rel"
-    response = get(url)
+    response = get(url, headers=HEADERS)
     response.raise_for_status()
     return response
 

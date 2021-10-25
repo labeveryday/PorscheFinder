@@ -29,7 +29,6 @@ def main(location: str='kansascity', cities: bool=False) -> None:
         response = cars.get_porsche()
         car = cars.get_soup(response)
         car_list.append(car)
-        results = get_pandas(location)
     add_to_db(car_list)
     results = get_pandas(location)
     return results
@@ -90,7 +89,7 @@ def get_pandas(location: str='') -> 'pandas.core.frame.DataFrame':
     results = db.get_pandas(location)
     db.commit()
     db.close()
-    return results
+    return results.set_index('id')
 
 def print_cities() -> None:
     """
@@ -117,7 +116,6 @@ if __name__ == "__main__":
     from rich.console import Console
     console = Console()
     parser = argparse.ArgumentParser(description="To scan ALL craigslist cities:")
-    parser.add_argument_group()
     parser.add_argument("--all", help="Optional argument to scan all craigslist cities.",
                         action='store_true')
     parser.add_argument("--city", help="Optional argument to select city.",
@@ -140,8 +138,8 @@ if __name__ == "__main__":
                 except ValueError:
                     print("Please enter a valid number.\n")
             print(f"\nHere are the results for {cities[user_input-1]}:\n")
-            console.print(main(location=city))
             break
+        console.print(main(location=city))
     else:
         if args.all:
             console.print(main(cities=True))

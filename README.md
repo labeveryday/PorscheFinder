@@ -40,11 +40,7 @@ Now that you have everything installed and updated you can execute the script.
 python main.py
 ```
 
-Sample output.
-
-`...` Some output has been omitted.
-
-![Sample](./img/sample.png)
+![kc](./img/kc.png)
 
 >Note: This script has the ability to list search all cities or select from option of cities.
 
@@ -59,6 +55,19 @@ python main.py --city
 ![list1](./img/list1.png)
 ![list2](./img/list2.png)
 
+## Example 3
+
+To search all cities:
+
+```bash
+python main.py --all
+```
+
+>NOTE: Performing this search 
+
+Sample output.
+
+`...` Some output has been omitted.
 
 ### About me
 

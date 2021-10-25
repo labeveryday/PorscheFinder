@@ -64,8 +64,7 @@ class CarsDb:
             query = ("SELECT * FROM CAR ORDER BY cast(ltrim(price, '$') "
                     "as numeric) DESC;")
         df = pd.read_sql_query(query, self.conn)
-        return df.set_index('id')
-
+        return df
 
 if __name__ == "__main__":
     pass
