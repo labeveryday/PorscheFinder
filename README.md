@@ -69,6 +69,10 @@ Sample output.
 
 `...` Some output has been omitted.
 
+>NOTE: In VScode you have the ability to view sqlite by installing `vscode-sqlite`
+
+![db](./img/db.png)
+
 ### About me
 
 Introverted Network Automation Engineer that is changing lives as a Developer Advocate for Cisco DevNet. Pythons scripts are delicious. Especially at 2am on a Saturday night.
