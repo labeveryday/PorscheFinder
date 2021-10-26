@@ -145,7 +145,6 @@ def print_cities() -> None:
             i += 1
             c = c = str(i+1) + f".{city_list[i]}"
             print("{:<20}{:<20}{:<}".format(a,b,c))
-            break
         else:
             print("{:<20}{:<20}{:<20}{:<20}{:<}".format(a,b,c,d,e))
 
