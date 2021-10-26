@@ -138,7 +138,16 @@ def print_cities() -> None:
         i += 1
         e = str(i) + f".{e}"
         i += 1
-        print("{:<20}{:<20}{:<20}{:<20}{:<}".format(a,b,c,d,e))
+        if  e == '410.youngstown':
+            print("{:<20}{:<20}{:<20}{:<20}{:<}".format(a,b,c,d,e))
+            a = str(i) + f".{city_list[i-1]}"
+            b = str(i+1) + f".{city_list[i]}"
+            i += 1
+            c = c = str(i+1) + f".{city_list[i]}"
+            print("{:<20}{:<20}{:<}".format(a,b,c))
+            break
+        else:
+            print("{:<20}{:<20}{:<20}{:<20}{:<}".format(a,b,c,d,e))
 
 
 if __name__ == "__main__":
